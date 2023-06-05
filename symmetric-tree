@@ -1,0 +1,41 @@
+https://leetcode.com/problems/symmetric-tree/
+
+* Definition for a binary tree node.
+* function TreeNode(val, left, right) {
+*     this.val = (val===undefined ? 0 : val)
+*     this.left = (left===undefined ? null : left)
+*     this.right = (right===undefined ? null : right)
+* }
+
+Similar to the Same Tree leetcode question, where we compare 2 trees and check if they are equal.
+But right now we are checking if the left child is === right child, vice versa.
+
+DFS approach
+DFS on both the left and right subtrees at the same time to compare nodes.
+Time complexity:
+  Visiting every single nodes.
+  O(n), n = number of nodes
+Memory complexity:
+  O(h), h = height of the tree
+Explaination:
+  - Define an inner function, dfs().
+    2 parameters (left and right subtrees)
+  - Base case: 
+    1.Return true if both of the nodes are null.
+      The tree is symmetrical if both dont have a node in that position.
+    2.Return false if one of the nodes is null.
+      Not symmetrical.
+Solution:
+var isSymmetric = function(root) {
+    const dfs = (left, right) => {
+        if(!left && !right){
+            return true
+        } else if (!left || !right){
+            return false
+        }
+
+        return (left.val === right.val) && dfs(left.left, right.right) && dfs(left.right, right.left)
+    }
+    return dfs(root.left, root.right)
+    
+};
